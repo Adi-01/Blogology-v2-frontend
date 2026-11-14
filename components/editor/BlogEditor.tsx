@@ -288,20 +288,54 @@ export function BlogEditor({ initialPost, postId }: BlogEditorProps) {
     triggerAutosave();
   };
 
+  const commitTag = (raw: string) => {
+    const trimmed = raw.trim().toLowerCase().replace(/^#/, "");
+    if (trimmed && !tags.includes(trimmed) && tags.length < 5) {
+      const updated = [...tags, trimmed];
+      setTags(updated);
+      setTagInput("");
+      triggerAutosave();
+      return true;
+    }
+    return false;
+  };
+
+  const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (val.includes(",")) {
+      const segments = val.split(",");
+      const toAdd = segments.slice(0, -1);
+      const remainder = segments[segments.length - 1];
+
+      let updated = [...tags];
+      for (const seg of toAdd) {
+        const trimmed = seg.trim().toLowerCase().replace(/^#/, "");
+        if (trimmed && !updated.includes(trimmed) && updated.length < 5) {
+          updated.push(trimmed);
+        }
+      }
+      setTags(updated);
+      setTagInput(remainder);
+      triggerAutosave();
+    } else {
+      setTagInput(val);
+    }
+  };
+
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" || e.key === ",") {
       e.preventDefault();
-      const trimmed = tagInput.trim().toLowerCase().replace(/^#/, "");
-      if (trimmed && !tags.includes(trimmed) && tags.length < 5) {
-        const updated = [...tags, trimmed];
-        setTags(updated);
-        setTagInput("");
-        triggerAutosave();
-      }
+      commitTag(tagInput);
     } else if (e.key === "Backspace" && !tagInput && tags.length > 0) {
       const updated = tags.slice(0, -1);
       setTags(updated);
       triggerAutosave();
+    }
+  };
+
+  const handleTagInputBlur = () => {
+    if (tagInput.trim()) {
+      commitTag(tagInput);
     }
   };
 
@@ -598,8 +632,9 @@ export function BlogEditor({ initialPost, postId }: BlogEditorProps) {
               <input
                 type="text"
                 value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)}
+                onChange={handleTagInputChange}
                 onKeyDown={handleAddTag}
+                onBlur={handleTagInputBlur}
                 placeholder={
                   tags.length === 0
                     ? "Add at least 3 tags (press comma or enter)..."
