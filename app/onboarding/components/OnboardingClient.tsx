@@ -51,7 +51,13 @@ export function OnboardingClient({ tags, userName }: OnboardingClientProps) {
     setIsSubmitting(true);
 
     try {
-      const res = await saveInterestsAction(selectedTagIds);
+      const selectedTags = tags.filter((t) => selectedTagIds.includes(t.id));
+      const identifiers =
+        selectedTags.length >= 3
+          ? selectedTags.map((t) => t.name)
+          : selectedTagIds;
+
+      const res = await saveInterestsAction(identifiers);
       if (!res.success) {
         setErrorMessage(res.message || "Failed to save topics.");
         setIsSubmitting(false);

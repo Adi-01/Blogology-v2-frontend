@@ -18,7 +18,7 @@ export default function SearchPage() {
             Search
           </h1>
           <p className="font-serif text-base text-muted-foreground">
-            Find stories by title or content, or look up writers by username.
+            Find stories by title or content, or look up writers by name or username.
           </p>
         </div>
       </header>

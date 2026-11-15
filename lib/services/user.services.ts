@@ -51,11 +51,7 @@ async function fetchUserProfileCached(username: string): Promise<AuthorPublicPro
   return res.ok ? res.data : null;
 }
 
-async function fetchAllTagsCached(): Promise<TagItem[]> {
-  "use cache";
-  cacheTag("tags:all");
-  cacheLife("days");
-
+async function fetchAllTags(): Promise<TagItem[]> {
   const res = await executeFetch<TagItem[]>(`${API_BASE_URL}/api/v1/users/tags`, {
     method: "GET",
   });
@@ -246,7 +242,7 @@ export const userService = {
   },
 
   getAllTags: async (): Promise<TagItem[]> => {
-    return fetchAllTagsCached();
+    return fetchAllTags();
   },
 
   getUserInterests: async (): Promise<TagItem[]> => {

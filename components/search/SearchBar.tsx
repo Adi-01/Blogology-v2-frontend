@@ -83,7 +83,7 @@ export function SearchBar() {
             placeholder={
               tab === "posts"
                 ? "Search stories by title or topic…"
-                : "Search writers by username…"
+                : "Search writers by name or username…"
             }
             aria-label="Search Blogology"
             className="h-11 rounded-full pl-11 pr-24 bg-background border-border"
