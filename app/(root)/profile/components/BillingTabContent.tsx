@@ -65,12 +65,12 @@ export function BillingTabContent({ user }: BillingTabContentProps) {
     <div className="space-y-10">
       {/* Status banners from Stripe redirects */}
       {billingStatus === "success" && isPro && !dismissedStatus && (
-        <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-4 text-sm text-foreground shadow-xs">
+        <div className="flex items-center justify-between gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm shadow-xs">
           <div className="flex items-center gap-3">
-            <CheckCircle2 className="h-5 w-5 text-foreground shrink-0" />
+            <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
             <div>
-              <p className="font-medium">Plan upgraded successfully!</p>
-              <p className="text-muted-foreground text-xs mt-0.5">
+              <p className="font-medium text-emerald-950 dark:text-emerald-100">Plan upgraded successfully!</p>
+              <p className="text-emerald-900/80 dark:text-emerald-200/70 text-xs mt-0.5">
                 Your account now has access to 100 daily AI streaming requests.
               </p>
             </div>
@@ -79,7 +79,7 @@ export function BillingTabContent({ user }: BillingTabContentProps) {
             type="button"
             onClick={clearBillingStatus}
             aria-label="Dismiss banner"
-            className="p-1 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors cursor-pointer shrink-0"
+            className="p-1 rounded-full text-emerald-800/70 dark:text-emerald-300/70 hover:text-emerald-950 dark:hover:text-emerald-100 hover:bg-emerald-500/15 transition-colors cursor-pointer shrink-0"
           >
             <X className="h-4 w-4" />
           </button>
@@ -87,12 +87,12 @@ export function BillingTabContent({ user }: BillingTabContentProps) {
       )}
 
       {billingStatus === "cancelled" && !dismissedStatus && (
-        <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-4 text-sm text-foreground shadow-xs">
+        <div className="flex items-center justify-between gap-3 rounded-xl border border-destructive/25 bg-destructive/10 p-4 text-sm shadow-xs">
           <div className="flex items-center gap-3">
-            <AlertCircle className="h-5 w-5 text-muted-foreground shrink-0" />
+            <AlertCircle className="h-5 w-5 text-destructive shrink-0" />
             <div>
-              <p className="font-medium">Checkout was cancelled</p>
-              <p className="text-muted-foreground text-xs mt-0.5">
+              <p className="font-medium text-destructive">Checkout was cancelled</p>
+              <p className="text-destructive/80 text-xs mt-0.5">
                 No charges were made. You can upgrade anytime below.
               </p>
             </div>
@@ -101,7 +101,7 @@ export function BillingTabContent({ user }: BillingTabContentProps) {
             type="button"
             onClick={clearBillingStatus}
             aria-label="Dismiss banner"
-            className="p-1 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors cursor-pointer shrink-0"
+            className="p-1 rounded-full text-destructive/70 hover:text-destructive hover:bg-destructive/15 transition-colors cursor-pointer shrink-0"
           >
             <X className="h-4 w-4" />
           </button>
@@ -109,7 +109,7 @@ export function BillingTabContent({ user }: BillingTabContentProps) {
       )}
 
       {errorMessage && (
-        <div className="flex items-center gap-3 rounded-xl border border-destructive/20 bg-destructive/5 p-4 text-sm text-destructive shadow-xs">
+        <div className="flex items-center gap-3 rounded-xl border border-destructive/25 bg-destructive/10 p-4 text-sm text-destructive shadow-xs">
           <AlertCircle className="h-5 w-5 shrink-0" />
           <p>{errorMessage}</p>
         </div>

@@ -11,6 +11,7 @@ import { PostBackButton } from "@/components/posts/PostBackButton";
 import { AiSummariseButton } from "@/components/posts/AiSummariseButton";
 import { PostActions } from "@/components/posts/PostActions";
 import { CommentsSection } from "@/components/posts/CommentsSection";
+import { FollowButton } from "@/components/profile/FollowButton";
 
 interface PostPageProps {
   params: Promise<{ id: string }>;
@@ -151,11 +152,23 @@ export default async function PostDetailPage({ params }: PostPageProps) {
               </div>
             </Link>
 
-            {post.status === "DRAFT" && (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground">
-                Author Preview (Draft)
-              </span>
-            )}
+            <div className="flex items-center gap-3">
+              {post.status === "DRAFT" && (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground">
+                  Author Preview (Draft)
+                </span>
+              )}
+
+              {post.status === "PUBLISHED" && (
+                <FollowButton
+                  targetUserId={post.authorId}
+                  targetUsername={post.author.username}
+                  initialIsFollowing={post.isFollowedAuthor}
+                  size="sm"
+                  variant="outline"
+                />
+              )}
+            </div>
           </div>
 
           {/* AI Executive Summary Feature */}

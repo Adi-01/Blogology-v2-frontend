@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { Heart, MessageCircle, Bookmark, UserCheck } from "lucide-react";
+import { Heart, MessageCircle, Bookmark } from "lucide-react";
 import { formatRelativeTime } from "@/lib/utils";
 import type { FeedPostItem } from "@/types/post";
 
@@ -41,13 +41,6 @@ export function PostFeedCard({ post, hideAuthor = false }: PostFeedCardProps) {
                     {post.author.name}
                   </span>
                 </Link>
-
-                {post.isFollowedAuthor && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-secondary text-secondary-foreground border border-border">
-                    <UserCheck className="w-3 h-3 shrink-0" />
-                    Following
-                  </span>
-                )}
 
                 <span className="text-muted-foreground/40">·</span>
               </>
