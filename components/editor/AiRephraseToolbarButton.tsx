@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { Sparkles, Check, X, ChevronDown, Loader2 } from "lucide-react";
 import { useBlockNoteEditor } from "@blocknote/react";
 import { streamAiCompletion } from "@/lib/api/ai";
+import { AiSmoothStreamResponse } from "@/components/shared/AiSmoothStreamResponse";
 
 interface AiRephraseToolbarButtonProps {
   editor?: any;
@@ -368,9 +369,14 @@ export function AiRephraseToolbarButton({
           )}
 
           {rephrasedText && (
-            <p className="text-foreground text-xs leading-relaxed max-h-48 overflow-y-auto whitespace-pre-wrap">
-              {rephrasedText}
-            </p>
+            <div className="max-h-48 overflow-y-auto">
+              <AiSmoothStreamResponse
+                text={rephrasedText}
+                isStreaming={isGenerating}
+                speed="natural"
+                className="font-sans text-xs leading-relaxed text-foreground"
+              />
+            </div>
           )}
 
           {error && (

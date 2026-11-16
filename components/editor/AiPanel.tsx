@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { streamAiCompletion } from "@/lib/api/ai";
+import { AiSmoothStreamResponse } from "@/components/shared/AiSmoothStreamResponse";
 
 interface AiPanelProps {
   open: boolean;
@@ -574,9 +575,12 @@ export function AiPanel({
               <span className="text-[10px] font-semibold text-success uppercase tracking-wider block">
                 Rephrased Suggestion:
               </span>
-              <p className="text-foreground leading-relaxed">
-                {rephrasedOutput}
-              </p>
+              <AiSmoothStreamResponse
+                text={rephrasedOutput}
+                isStreaming={isStreaming}
+                speed="natural"
+                className="font-sans text-xs text-foreground leading-relaxed"
+              />
 
               {!isStreaming && (
                 <div className="flex items-center gap-2 pt-2 border-t border-border/50">

@@ -1,48 +1,82 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { COOKIE_NAMES } from "@/lib/constants";
-import { logoutAction } from "@/app/actions/auth";
+import { cn } from "@/lib/utils";
 
-export async function LandingActions() {
+interface LandingActionsProps {
+  className?: string;
+}
+
+export async function LandingActions({ className }: LandingActionsProps) {
   const cookieStore = await cookies();
   const hasSession = Boolean(cookieStore.get(COOKIE_NAMES.SESSION_TOKEN)?.value);
 
   if (hasSession) {
     return (
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <Link href="/for-you-page">
-          <Button variant="primary" size="lg" className="w-full sm:w-auto h-12 px-8 text-base">
-            Go to Feed
+      <div
+        className={cn(
+          "flex flex-col sm:flex-row items-center justify-center gap-3.5",
+          className
+        )}
+      >
+        <Link href="/for-you-page" className="w-full sm:w-auto">
+          <Button
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto h-12 px-8 text-sm font-medium rounded-full group cursor-pointer"
+          >
+            <span>Go to your feed</span>
+            <ArrowRight
+              className="w-4 h-4 ml-2 transition-transform duration-200 group-hover:translate-x-1"
+              strokeWidth={1.5}
+            />
           </Button>
         </Link>
-        <form action={logoutAction}>
+        <Link href="/explore" className="w-full sm:w-auto">
           <Button
-            type="submit"
             variant="outline"
             size="lg"
-            className="w-full sm:w-auto h-12 px-8 text-base text-destructive hover:text-destructive"
+            className="w-full sm:w-auto h-12 px-8 text-sm font-medium rounded-full cursor-pointer hover:bg-secondary/70 transition-colors"
           >
-            Log out
+            <BookOpen className="w-4 h-4 mr-2" strokeWidth={1.5} />
+            <span>Explore archive</span>
           </Button>
-        </form>
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <Link href="/signup">
-        <Button variant="primary" size="lg" className="w-full sm:w-auto h-12 px-8 text-base">
-          Start reading
+    <div
+      className={cn(
+        "flex flex-col sm:flex-row items-center justify-center gap-3.5",
+        className
+      )}
+    >
+      <Link href="/signup" className="w-full sm:w-auto">
+        <Button
+          variant="primary"
+          size="lg"
+          className="w-full sm:w-auto h-12 px-8 text-sm font-medium rounded-full group cursor-pointer"
+        >
+          <span>Start reading</span>
+          <ArrowRight
+            className="w-4 h-4 ml-2 transition-transform duration-200 group-hover:translate-x-1"
+            strokeWidth={1.5}
+          />
         </Button>
       </Link>
-      <Link href="/login">
-        <Button variant="outline" size="lg" className="w-full sm:w-auto h-12 px-8 text-base">
-          Sign in
+      <Link href="/explore" className="w-full sm:w-auto">
+        <Button
+          variant="outline"
+          size="lg"
+          className="w-full sm:w-auto h-12 px-8 text-sm font-medium rounded-full cursor-pointer hover:bg-secondary/70 transition-colors"
+        >
+          <span>Explore stories</span>
         </Button>
       </Link>
     </div>
   );
 }
-

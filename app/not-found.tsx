@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Compass, Search } from "lucide-react";
+import { ArrowLeft, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "404 — Page Not Found · Blogology",

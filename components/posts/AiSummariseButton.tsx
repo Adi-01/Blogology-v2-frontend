@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Sparkles, Copy, Check, X, Loader2, Square, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { streamAiCompletion } from "@/lib/api/ai";
+import { AiSmoothStreamResponse } from "@/components/shared/AiSmoothStreamResponse";
 
 interface AiSummariseButtonProps {
   postId: string;
@@ -236,14 +237,14 @@ export function AiSummariseButton({
             </div>
           )}
 
-          {/* Streamed summary text */}
+          {/* Smoothly streamed summary text */}
           {summary && (
-            <p className="font-serif text-sm sm:text-base text-foreground/90 leading-relaxed">
-              {summary}
-              {isStreaming && (
-                <span className="inline-block w-1.5 h-4 ml-1 bg-foreground animate-pulse align-middle" />
-              )}
-            </p>
+            <AiSmoothStreamResponse
+              text={summary}
+              isStreaming={isStreaming}
+              speed="natural"
+              className="text-sm sm:text-base"
+            />
           )}
 
           {/* Error Message */}
